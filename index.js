@@ -26,7 +26,17 @@ function slide(toIndex){
   const newItemActive = itemsArray[toIndex];
 
   // start transition
-  newItemActive.classList.add("");
+  newItemActive.classList.add(".carousel_item_pos_next");
+  setTimeout(()=>{
+    newItemActive.classList.add(".carousel_item_next")
+    itemActive.classList.add(".carousel_item_next")
+  }, 20);
+
+
+  //remove all transition class and switch active class
+  newItemActive.addEventListener("transitionend", ()=>{
+    
+  })
 }
 
 function getItemActiveIndex(){
