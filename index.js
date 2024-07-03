@@ -8,23 +8,30 @@ function hideSidebar(){
   sidebar.style.display = 'none';
 }
 
-// document.addEventListener("DOMContentLoaded", function() {
-//   const slides = document.querySelector(".slides");
-//   let counter = 0;
+function autoSlide(){
+  setInterval(() => {
+    slide(getItemActiveIndex() + 1)
+  }, 1000); //slide speed = 1s
+}
 
-//   setInterval(() => {
-//     counter++;
-//     slides.style.transform = `translateX(-${counter * 100 / 5}%)`; // Adjust for number of slides (5 in this case)
-    
-//     if (counter === 5) { // Adjust for number of slides (5 in this case)
-//       counter = 0;
-//       setTimeout(() => {
-//         slides.style.transition = "none";
-//         slides.style.transform = `translateX(0)`;
-//         setTimeout(() => {
-//           slides.style.transition = "transform 0.5s ease";
-//         });
-//       }, 500); // Adjust for transition duration
-//     }
-//   }, 3000); // Adjust for interval duration (3 seconds in this case)
-// });
+function slide(toIndex){
+  const itemsArray = Array.from(document.querySelectorAll(".carousel_item"));
+  const itemsActive = document.querySelector(".carousel_item_active");
+
+  // check if toIndex exceeds the number of carousel items
+  if(toIndex > itemsArray.length){
+    toIndex = 0;
+  }
+
+  const newItemActive = itemsArray[toIndex];
+
+  // start transition
+  newItemActive.classList.add("");
+}
+
+function getItemActiveIndex(){
+  const itemsArray = Array.from(document.querySelectorAll(".carousel_item"));
+  const itemsActive = document.querySelector(".carousel_item_active");
+  const itemActiveIndex = itemsArray.indexOf(itemsActive);
+  return itemActiveIndex;
+}
