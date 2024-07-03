@@ -1,45 +1,51 @@
-function showSidebar(){
+function showSidebar() {
   const sidebar = document.querySelector('.sidebar');
   sidebar.style.display = 'flex';
 }
 
-function hideSidebar(){
+function hideSidebar() {
   const sidebar = document.querySelector('.sidebar');
   sidebar.style.display = 'none';
 }
 
-function autoSlide(){
+function autoSlide() {
   setInterval(() => {
-    slide(getItemActiveIndex() + 1)
-  }, 1000); //slide speed = 1s
+    slide(getItemActiveIndex() + 1);
+  }, 1000); // slide speed = 1s
 }
 
-function slide(toIndex){
+window.addEventListener("load", () => {
+  autoSlide();
+});
+
+function slide(toIndex) {
   const itemsArray = Array.from(document.querySelectorAll(".carousel_item"));
   const itemsActive = document.querySelector(".carousel_item_active");
 
   // check if toIndex exceeds the number of carousel items
-  if(toIndex > itemsArray.length){
+  if (toIndex >= itemsArray.length) {
     toIndex = 0;
   }
 
   const newItemActive = itemsArray[toIndex];
 
   // start transition
-  newItemActive.classList.add(".carousel_item_pos_next");
-  setTimeout(()=>{
-    newItemActive.classList.add(".carousel_item_next")
-    itemActive.classList.add(".carousel_item_next")
+  newItemActive.classList.add("carousel_item_pos_next");
+  setTimeout(() => {
+    newItemActive.classList.add("carousel_item_next");
+    itemsActive.classList.add("carousel_item_next");
   }, 20);
 
-
-  //remove all transition class and switch active class
-  newItemActive.addEventListener("transitionend", ()=>{
-    
-  })
+  // remove all transition class and switch active class
+  newItemActive.addEventListener("transitionend", () => {
+    itemsActive.className = "carousel_item";
+    newItemActive.className = "carousel_item carousel_item_active";
+  }, {
+    once: true
+  });
 }
 
-function getItemActiveIndex(){
+function getItemActiveIndex() {
   const itemsArray = Array.from(document.querySelectorAll(".carousel_item"));
   const itemsActive = document.querySelector(".carousel_item_active");
   const itemActiveIndex = itemsArray.indexOf(itemsActive);

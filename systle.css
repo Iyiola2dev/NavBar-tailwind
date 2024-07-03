@@ -9,10 +9,7 @@
     box-sizing: border-box;
 }
 
-.container{
-    width: 50%;
-    margin-inline: auto;
-}
+
 /* carousel */
 .carousel_inner{
     width: 100%;
@@ -47,6 +44,9 @@
     transform: translateX(-100%);
     transition: transform .5s ease-in-out;
 }
+
+
+/* fade effect */
 
 /* carousel */
 .carousel_img {
