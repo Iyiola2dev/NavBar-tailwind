@@ -8,46 +8,36 @@ function hideSidebar() {
   sidebar.style.display = 'none';
 }
 
-function autoSlide() {
-  setInterval(() => {
-    slide(getItemActiveIndex() + 1);
-  }, 1000); // slide speed = 1s
+
+let slideIndex = 0;
+const slides = document.querySelector('.slides');
+const totalSlides = document.querySelectorAll('.slide').length;
+
+function showSlide(index) {
+    if (index >= totalSlides) {
+        slideIndex = 0;
+    } else if (index < 0) {
+        slideIndex = totalSlides - 1;
+    } else {
+        slideIndex = index;
+    }
+    const offset = -slideIndex * 100;
+    slides.style.transform = `translateX(${offset}%)`;
 }
 
-window.addEventListener("load", () => {
-  autoSlide();
+function moveSlide(n) {
+    showSlide(slideIndex + n);
+}
+
+function autoPlay() {
+    moveSlide(1);
+    setTimeout(autoPlay, 3000); // Change image every 3 seconds
+}
+
+document.addEventListener('DOMContentLoaded', (event) => {
+    autoPlay();
 });
 
-function slide(toIndex) {
-  const itemsArray = Array.from(document.querySelectorAll(".carousel_item"));
-  const itemsActive = document.querySelector(".carousel_item_active");
 
-  // check if toIndex exceeds the number of carousel items
-  if (toIndex >= itemsArray.length) {
-    toIndex = 0;
-  }
 
-  const newItemActive = itemsArray[toIndex];
 
-  // start transition
-  newItemActive.classList.add("carousel_item_pos_next");
-  setTimeout(() => {
-    newItemActive.classList.add("carousel_item_next");
-    itemsActive.classList.add("carousel_item_next");
-  }, 20);
-
-  // remove all transition class and switch active class
-  newItemActive.addEventListener("transitionend", () => {
-    itemsActive.className = "carousel_item";
-    newItemActive.className = "carousel_item carousel_item_active";
-  }, {
-    once: true
-  });
-}
-
-function getItemActiveIndex() {
-  const itemsArray = Array.from(document.querySelectorAll(".carousel_item"));
-  const itemsActive = document.querySelector(".carousel_item_active");
-  const itemActiveIndex = itemsArray.indexOf(itemsActive);
-  return itemActiveIndex;
-}
